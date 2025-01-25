@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Fake Account Detector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f8ff;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4BA3E3, #2A6B96);
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="gradient-bg text-white p-6">
+            <div class="container mx-auto">
+                <h1 class="text-3xl font-bold mb-2">Instagram Account Analyzer</h1>
+                <p class="text-lg opacity-90">Detect fake accounts using machine learning</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <!-- Analysis Form -->
+            <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-semibold mb-4">Analyze Account</h2>
+                <form id="analyzeForm" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2" for="username">Instagram Username</label>
+                        <input type="text" id="username" required
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="@username">
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                        Analyze Account <i class="bi bi-search ml-2"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results Section (Hidden by default) -->
+            <div id="results" class="max-w-2xl mx-auto hidden">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Analysis Results</h3>
+                    <div id="resultContent" class="space-y-4">
+                        <!-- Results will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="mt-12 grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <i class="bi bi-shield-check text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Machine Learning</h3>
+                    <p class="text-gray-600">Advanced algorithms to detect patterns in account behavior</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <i class="bi bi-graph-up text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Accurate Analysis</h3>
+                    <p class="text-gray-600">High precision in identifying suspicious accounts</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <i class="bi bi-lightning text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Real-time Results</h3>
+                    <p class="text-gray-600">Get instant feedback on account authenticity</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('analyzeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            
+            // Show loading state
+            const results = document.getElementById('results');
+            const resultContent = document.getElementById('resultContent');
+            results.classList.remove('hidden');
+            resultContent.innerHTML = `
+                <div class="flex items-center justify-center py-4">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    <span class="ml-2">Analyzing account...</span>
+                </div>
+            `;
+
+            // Simulate analysis (in real implementation, this would call an API)
+            setTimeout(() => {
+                // Generate random result for demonstration
+                const isFake = Math.random() > 0.5;
+                const confidence = Math.floor(Math.random() * 20 + 80); // 80-99%
+
+                resultContent.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center ${isFake ? 'text-red-600' : 'text-green-600'}">
+                            <i class="bi ${isFake ? 'bi-x-circle' : 'bi-check-circle'} text-3xl mr-2"></i>
+                            <span class="text-xl font-semibold">
+                                ${isFake ? 'Potential Fake Account' : 'Likely Authentic Account'}
+                            </span>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <p class="font-semibold">Confidence Score: ${confidence}%</p>
+                            <div class="w-full bg-gray-300 rounded-full h-2.5 mt-2">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: ${confidence}%"></div>
+                            </div>
+                        </div>
+                        <div class="text-gray-600">
+                            <p>Analyzed factors:</p>
+                            <ul class="list-disc ml-6 mt-2">
+                                <li>Account activity patterns</li>
+                                <li>Follower to following ratio</li>
+                                <li>Post frequency analysis</li>
+                                <li>Engagement metrics</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }, 1500);
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
